@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head itemscope itemtype="http://schema.org/Website">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Refresh" content="180">
+	#if $Extras.has_key('cwop')
+        <meta name="description" content="Stazione Meteo $station.location ($Extras.cwop) - sito meteo generato da WeeWX">
+        #else
+        <meta name="description" content="Stazione Meteo $station.location - sito meteo generato da WeeWX">
+	#end if
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="profile" href="http://gmpg.org/xfn/11" />
+	#if $Extras.has_key('web_url')
+	<link rel="canonical" href="$Extras.web_url"/>
+	#end if
+        
+	<title>$station.location Condizioni Meteo Correnti</title>
+        
+        <!-- Open Graph -->
+	#if $Extras.has_key('cwop')
+        <meta property="og:site_name" content="$station.location Stazione Meteo ($Extras.cwop)" />
+	<meta property="og:title" content="$station.location ($Extras.cwop) Condizioni Meteo Correnti"/>
+	#else
+	<meta property="og:site_name" content="$station.location Stazione Meteo" />
+	<meta property="og:title" content="$station.location Condizioni Meteo Correnti"/>
+	#end if
+	<meta property="og:image" content="$Extras.web_url/daytempdew.png"/>
+	#if $Extras.has_key('web_url')
+	<meta property="og:url" content="$Extras.web_url"/>
+	#end if
+	#if $Extras.has_key('cwop')
+        <meta property="og:description" content="Condizioni Meteo Correnti a $station.location ($Extras.cwop) - sito meteo generato da WeeWX" />
+	#else
+	<meta property="og:description" content="Condizioni Meteo Correnti a $station.location - sito meteo generato da WeeWX" />
+	#end if
+	<meta property="og:type" content="website" />
+
+	<!--SM Markups -->
+	#if $Extras.has_key('cwop')
+	<meta itemprop="name" content="$station.location ($Extras.cwop) Condizioni Meteo Correnti"/>
+	#else
+	<meta itemprop="name" content="$station.location Condizioni Meteo Correnti"/>
+	#end if
+	<meta itemprop="image" content="$Extras.web_url/daytempdew.png"/>
+	#if $Extras.has_key('web_url')
+	<meta itemprop="url" content="$Extras.web_url"/>
+	#end if
+	#if $Extras.has_key('cwop')
+        <meta itemprop="description" content="Condizioni Meteo Correnti a $station.location ($Extras.cwop) - sito meteo generato da WeeWX" />
+	#else
+        <meta itemprop="description" content="Condizioni Meteo Correnti a $station.location - sito meteo generato da WeeWX" />
+	#end if
+
+        <!-- Icons -->
+        <link rel="icon" href="favicon.ico" type="image/png">
+	<link rel="apple-touch-icon" href="touch-icon.png"/>
+        
+        <!-- Styles -->
+        <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/main.css">
+        
+        <!-- Skripte -->
+        <script src="js/modernizr-2.6.2.min.js"></script>
+	<script src="js/checkdiff.js"></script>
+        
+    </head>
+    <body>
+        <header>
+            <div class="container-fix" >
+                <div class="h-left" >
+                <h1><i class="fa fa-cloud" ></i> $station.location </h1>
+                <p>$station.latitude[0]&deg; $station.latitude[1]' $station.latitude[2] | $station.longitude[0]&deg; $station.longitude[1]' $station.longitude[2] | $station.altitude | <a href="https://www.google.com/maps/?q=$station.latitude[0]&deg;%20$station.latitude[1]%20$station.latitude[2],$station.longitude[0]&deg;%20$station.longitude[1]%20$station.longitude[2]" target="_blank" ><i class="fa fa-map-marker" ></i> Mostra sulla mappa</a></p>
+                <h2>Condizioni Meteo Correnti</h2>
+                <p><i class="fa fa-clock-o" ></i> $current.dateTime $current.dateTime.format("%Z")</p>
+		<p id="freshweather" class="m-orange"></p>
+		<script type="text/javascript">
+                      window.onload = checkDiff("$current.dateTime ($current.dateTime.format('%Z'))");
+                </script>
+                </div>
+                
+                <div class="h-right" >
+                    <table>
+                        <tr><td><b>Stazione:</b></td><td>$station.hardware</td></tr>
+                        <tr><td><b>Software:</b></td><td><a href="http://weewx.com/" target="_blank" >WeeWX v$station.version</a></td></tr>
+                        <tr><td><b>Weewx uptime:</b></td><td>$station.uptime</td></tr>
+                        <tr><td><b>Server uptime:</b></td><td>$station.os_uptime</td></tr>
+			#if $Extras.has_key('cwop') and $Extras.has_key('crahs')
+			<tr><td><b>Station IDs:</b></td><td><a href="$Extras.cwop_url" target="_blank">$Extras.cwop</a> | <a href="$Extras.crahs_url" target="_blank">$Extras.crahs</a></td></tr>
+			#end if
+		    </table>
+                </div>
+
+                <nav>
+                    <ul class="topnav" id="myTopnav">
+			<li class="icon"><a href="javascript:void(0);" onclick="myFunction()"><i class="fa fa-bars" ></i></a></li>
+                        <li class="active" ><a href="/" >Correnti</a></li>
+                        <li><a href="week.html" >Settimana</a></li>
+                        <li><a href="month.html" >Mese</a></li>
+                        <li><a href="year.html" >Anno</a></li>
+			<li><a href="summary.html" >Tabelle</a></li>
+			<li><a href="station.html" >Stazione</a></li>
+			<li><a href="RSS/weewx_rss.xml" ><i class="fa fa-rss" ></i></a></li>
+                    </ul>
+                </nav>
+            </div>
+	</header>
+        
+        <div class="main" >
+        <div class="container" >
+            
+            <div class="left" >
+                
+                <div class="card" >
+		    #if $current.rainRate.raw == 0.0
+                    <h1><i class="fa fa-sun-o m-orange" ></i> Condizioni Correnti</h1>
+		    #else if $current.rainRate.raw >= 0.01
+		    <h1><i class="fa fa-umbrella m-blau" ></i> Condizioni Correnti</h1>
+		    #else
+		    <h1><i class="fa fa-sun-o m-orange" ></i> Condizioni Correnti</h1>
+		    #end if
+                    <table class="tablespacer">
+                        <tr><td>Temperatura</td><td>$current.outTemp</td></tr>
+                        <tr><td>Temperatura Percepita</td><td>$current.windchill</td></tr>
+                        <tr><td>Indice di Calore</td><td>$current.heatindex</td></tr>
+                        <tr><td>Punto di Rugiada</td><td>$current.dewpoint</td></tr>
+                        <tr><td>Umidit&agrave</td><td>$current.outHumidity</td></tr>
+                        <tr><td>Pressione</td><td>$current.barometer</td></tr>
+                        <tr><td>Tendenza Pressione ($trend.time_delta.hour.format("%.0f"))</td><td>$trend.barometer</td></tr>
+			#if $current.windSpeed.raw == 0.0
+                        <tr><td>Vento</td><td>$current.windSpeed </td></tr>
+			#else
+			<tr><td>Vento</td><td>$current.windSpeed $current.windDir.ordinal_compass ($current.windDir)</td></tr>
+			#end if
+                        #if $current.windGust.raw == 0.0
+			<tr><td>Raffica di Vento</td><td>$current.windGust </td></tr>
+			#else
+			<tr><td>Raffica di Vento</td><td>$current.windGust $current.windGustDir.ordinal_compass ($current.windGustDir)</td></tr>
+			#end if
+			<tr><td>Pioggia</td><td>$current.rainRate</td></tr>
+                               #if $day.extraTemp1.has_data
+                        <tr><td>Pond Temperature</td><td>$current.extraTemp1</td></tr>
+                        #end if
+                        #if $day.UV.has_data
+                        <tr><td>UV</td><td>$current.UV</td></tr>
+                        #end if
+                        #if $day.ET.has_data and $day.ET.sum.raw > 0.0
+                        <tr><td>ET</td><td>$current.ET</td></tr>
+                        #end if
+                        #if $day.radiation.has_data
+                        <tr><td>Solar Radiation</td><td>$current.radiation</td></tr>
+                        #end if
+                    </table>
+                </div>
+
+<!-- personalizzazione Webcam -->
+			<div class="card" >
+			<img class <h1><i class="fa fa-camera" style="color:#999"></i> Webcam</h1>
+			<div style="text-align:center">
+			<a href="web1.html"> <img src="/foto/webcam1/webcamsmall1.php" /></a><p>
+			<a href="web2.html"> <img src="/foto/webcam2/webcamsmall2.php" /></a><p>
+			<a href="web3.html"> <img src="/foto/webcam3/webcamsmall3.php" /></a><p>
+			</div>
+			</div>
+<!-- fine personalizzazione webcam -->
+
+
+
+                <div class="card" >
+                    <h1><i class="fa fa-moon-o m-grau" ></i> Dalla Mezzanotte</h1>
+                    <table class="tablespacer">
+                        <tr><td>Temperatura Max</td><td>$day.outTemp.max</td><td>$day.outTemp.maxtime</td></tr>
+                        <tr><td>Temperatura Min</td><td>$day.outTemp.min</td><td>$day.outTemp.mintime</td></tr>
+                        <tr><td>Indice di Calore Max</td><td>$day.heatindex.max</td><td>$day.heatindex.maxtime</td></tr>
+                        <tr><td>Temperatura Percepita Min</td><td>$day.windchill.min</td><td>$day.windchill.mintime</td></tr>
+                        <tr><td>Punto di Rugiada Max</td><td>$day.dewpoint.max</td><td>$day.dewpoint.maxtime</td></tr>
+                        <tr><td>Punto di Rugiada Min</td><td>$day.dewpoint.min</td><td>$day.dewpoint.mintime</td></tr>
+                        <tr><td>Umidit&agrave Max</td><td>$day.outHumidity.max</td><td>$day.outHumidity.maxtime</td></tr>
+                        <tr><td>Umidit&agrave Min</td><td>$day.outHumidity.min</td><td>$day.outHumidity.mintime</td></tr>
+                        <tr><td>Pressione Max</td><td>$day.barometer.max</td><td>$day.barometer.maxtime</td></tr>
+                        <tr><td>Pressione Min</td><td>$day.barometer.min</td><td>$day.barometer.mintime</td></tr>
+                        <tr><td>Pioggia Odierna</td><td>$day.rain.sum</td><td></td></tr>
+                        <tr><td>Intensit&agrave di Pioggia Max</td><td>$day.rainRate.max</td><td>$day.rainRate.maxtime</td></tr>
+                        <tr><td>Raffica di Vento Max</td><td>$day.wind.max $day.wind.gustdir</td><td>$day.wind.maxtime</td></tr>
+                        <tr><td>Vento Medio</td><td>$day.wind.avg</td><td></td></tr>
+                        <tr><td>RMS Vento</td><td>$day.wind.rms</td><td></td></tr>
+                        <tr><td>Velocit&agrave Vento Vettoriale</td><td>$day.wind.vecavg</td><td></td></tr>
+                        <tr><td>Direzione Vento Vettoriale</td><td>$day.wind.vecdir</td><td></td></tr>
+                        			#if $day.extraTemp1.has_data
+                        <tr><td>High Pond Temp</td><td>$day.extraTemp1.max</td><td>$day.extraTemp1.maxtime</td></tr>
+                        <tr><td>Low Pond Temp</td><td>$day.extraTemp1.min</td><td>$day.extraTemp1.mintime</td></tr>
+                        #end if
+                        #if $day.UV.has_data
+                        <tr><td>High UV</td><td>$day.UV.max</td><td>$day.UV.maxtime</td></tr>
+                        <tr><td>Low UV</td><td>$day.UV.min</td><td>$day.UV.mintime</td></tr>
+                        #end if
+                        #if $day.ET.has_data and $day.ET.sum.raw >0.0
+                        <tr><td>High ET</td><td>$day.ET.max</td><td>$day.ET.maxtime</td></tr>
+                        <tr><td>Low ET</td><td>$day.ET.min</td><td>$day.ET.mintime</td></tr>
+                        #end if
+                        #if $day.radiation.has_data
+                        <tr><td>High Radiation</td><td>$day.radiation.max</td><td>$day.radiation.maxtime</td></tr>
+                        <tr><td>Low Radiation</td><td>$day.radiation.min</td><td>$day.radiation.mintime</td></tr>
+                        #end if
+                    </table>
+                </div>
+	
+		<div class="card" >
+		    <!--Leap Year Code --!>
+		    #set $yr = int($day.dateTime.format("%Y"))%4
+		    #if $yr == 0
+			#if $yr % 100 == 0
+				#if $yr % 400 == 0
+		    		    #if $day.dateTime.format("%d-%b") == '29-Feb'
+				    	#set $n = 1461
+				    #else if $day.dateTime.format("%d-%b") >= '01-Mar'
+			            	#set $n = 366
+				    #else
+				    	#set $n = 365
+				    #end if
+				#else
+				    #set $n = 365
+				#end if
+			#else
+				#if $day.dateTime.format("%d-%b") == '29-Feb'
+					#set $n = 1461
+				#else if $day.dateTime.format("%d-%b") >= '01-Mar'
+			            	#set $n = 366
+				#else
+				    	#set $n = 365
+				#end if
+			#end if
+		    #else
+			#set $yrNew = ($yr - 1)
+			#if $yrNew % 100 == 0
+				#if $yrNew % 400 == 0
+					#if $day.dateTime.format("%d-%b") < '01-Mar'
+						#set $n = 366
+					#else
+						#set $n = 365
+					#end if
+				#end if
+			#else
+		    		#set $n = 365
+			#end if
+		    #end if
+                   </a>
+                    
+                </div>
+                    
+                
+ 
+		<!-- $Extras.cameratitle -->
+		<!-- $Extras.cameratitle2 -->
+
+<!-- Cartina Europa -->
+<div class="card">
+ <a href='http://it.sat24.com/it' target="_blank">
+   <img id="radar" class="space small" src="https://api.sat24.com/animated/EU/visual/1/Central%20European%20Standard%20Time/1057383"
+   alt="Radar">
+ </a>
+ <h3>
+<a id="btn1" class="cpointer" >Meteo Europa</a> 
+ </h3>
+</div>
+<!-- Fine Europa -->
+
+
+            </div>
+  
+
+            
+            <div class="right" >
+
+                <div class="card" >
+                    <h1><i class="fa fa-star-o m-rot" ></i> Almanacco</h1>
+                    #if $almanac.hasExtras
+                    ## Extended almanac information is available. Do the full set of tables.
+                    #set $sun_altitude = $almanac.sun.alt
+                    #if $sun_altitude < 0
+                    #set $sun_None="<i>(Always down)</i>"
+                    #else
+                    #set $sun_None="<i>(Always up)</i>"
+                    #end if
+                    <div class="haelfte" >
+                        <h3>Sole</h3>
+                        <table>
+                            <tr><td>Inizione Crepuscolo Civile:</td><td>$almanac(horizon=-6).sun(use_center=1).rise</td></tr>
+                            <tr><td>Alba</td><td>$almanac.sun.rise.string($sun_None)</td></tr>
+                            <tr><td>Transito:</td><td>$almanac.sun.transit</td></tr>
+                            <tr><td>Tramonto:</td><td>$almanac.sun.set.string($sun_None)</td></tr>
+                            <tr><td>Fine Crepuscolo Civile:</td><td>$almanac(horizon=-6).sun(use_center=1).set</td></tr>
+                            <tr><td>Azimut:</td><td>$("%.1f&deg;" % $almanac.sun.az)</td></tr>
+                            <tr><td>Altitudine:</td><td>$("%.1f&deg;" % $sun_altitude)</td></tr>
+                            <tr><td>Ascensione Retta:</td><td>$("%.1f&deg;" % $almanac.sun.ra)</td></tr>
+                            <tr><td>Inclinazione:</td><td>$("%.1f&deg;" % $almanac.sun.dec)</td></tr>
+                            #if $almanac.next_equinox.raw < $almanac.next_solstice.raw
+                            ## The equinox is before the solstice. Display them in order.
+                            <tr><td>Equinozio:</td><td>$almanac.next_equinox</td></tr>
+                            <tr><td>Solstizio:</td><td>$almanac.next_solstice</td></tr>
+                            #else
+                            ## The solstice is before the equinox. Display them in order.
+                            <tr><td>Solstizio:</td><td>$almanac.next_solstice</td></tr>
+                            <tr><td>Equinozio:</td><td>$almanac.next_equinox</td></tr>
+                            #end if
+                        </table>
+                    </div>
+                    <div class="haelfte" >
+                        <h3>Luna</h3>
+                        <table>
+                            <tr><td>Leva:</td><td>$almanac.moon.rise</td></tr>
+                            <tr><td>Transito:</td><td>$almanac.moon.transit</td></tr>
+                            <tr><td>Cala:</td><td>$almanac.moon.set</td></tr>
+                            <tr><td>Azimut:</td><td>$("%.1f&deg;" % $almanac.moon.az)</td></tr>
+                            <tr><td>Altitudine:</td><td>$("%.1f&deg;" % $almanac.moon.alt)</td></tr>
+                            <tr><td>Ascensione Retta:</td><td>$("%.1f&deg;" % $almanac.moon.ra)</td></tr>
+                            <tr><td>Inclinazione:</td><td>$("%.1f&deg;" % $almanac.moon.dec)</td></tr>
+                            #if $almanac.next_full_moon.raw < $almanac.next_new_moon.raw
+                            <tr><td>Luna Piena:</td><td>$almanac.next_full_moon</td></tr>
+                            <tr><td>Luna Nuova:</td><td>$almanac.next_new_moon</td></tr>
+                            #else
+                            <tr><td>Luna Nuova:</td><td>$almanac.next_new_moon</td></tr>
+                            <tr><td>Luna Piena:</td><td>$almanac.next_full_moon</td></tr>
+                            #end if
+                            <tr><td>Fase:</td><td>$almanac.moon_phase<br />($almanac.moon_fullness% Piena)</td></tr>
+                        </table>
+                    </div>
+                    #else
+                    ## No extended almanac information available. Fall back to a simple table.
+                    <table>
+                        <tr><td>Alba:</td><td>$almanac.sunrise</td></tr>
+                        <tr><td>Tramonto:</td><td>$almanac.sunset</td></tr>
+                        <tr><td>Fase Lunare:</td><td>$almanac.moon_phase<br/>($almanac.moon_fullness% full)</td></tr>
+                    </table>
+                    #end if
+                </div>
+                
+                <div class="card cc graphs" >
+                    <h1><i class="fa fa-line-chart m-gruen" ></i> Grafici</h1>
+                    
+                    <img src="daytempdew.png" alt="temperatures" />
+                    <img src="dayrain.png" alt="rain" />
+                    <img src="daywind.png" alt="wind" />
+                    <img src="daywinddir.png" alt="Hi Wind" />
+		    <img src="daywindvec.png" alt="Wind Vector" />
+                    <img src="daytempchill.png" alt="heatchill" />
+		    <img src="daybarometer.png" alt="barometer"/>
+		    <img src="dayinhumid.png" alt="Inside/Outside Humidity" />
+                    #if $day.radiation.has_data
+                    <img src="dayradiation.png" alt="Radiation" />
+                    #end if
+                    #if $day.UV.has_data
+                    <img src="dayuv.png" alt="UV Index" />
+                    #end if
+                    #if $day.rxCheckPercent.has_data
+                    <img src="dayrx.png" alt="day rx percent"/>
+                    #end if
+                    #if $day.extraTemp1.has_data
+                    <img src="daypond.png" alt="Pond Temperatures" />
+                    #end if
+                </div>
+                
+            
+
+            
+        </div>    
+        </div>
+        </div>
+        
+	<footer>
+            <div class="container-fix">
+	      <div style="text-align:center">
+		#if $Extras.has_key('you')
+            	<i class="fa fa-gg" aria-hidden="true"> </i><a href=mailto:$Extras.email> $Extras.you</a> 
+            	#end if
+		&sdot;
+	    	Copyright <i class="fa fa-copyright"></i> $latest.dateTime.format("%Y") 
+	   	<br>
+	    	Disegnato da <a href="http://blauesledersofa.de">blaues Ledersofa</a>
+	    	&sdot; 
+            	Generato da<i class="fa fa-cog fa-spin fa-fw" aria-hidden="true"></i><a href="http://weewx.com/" target="_blank">WeeWX</a> 
+            	&sdot; 
+		Icone da <i class="fa fa-font-awesome" aria-hidden="true"></i><a href="http://fontawesome.io" target="_blank"> Font Awesome</a>
+	      </div>
+	    </div>
+        </footer>
+
+        #if $Extras.has_key('googleAnalyticsId')
+        <!-- Google Analytics -->
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            
+            ga('create', '$Extras.googleAnalyticsId', 'auto');
+            ga('send', 'pageview');
+        </script>
+        #end if
+
+<!-- Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon -->
+<script>
+function myFunction() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+        x.className += " responsive";
+    } else {
+        x.className = "topnav";
+    }
+}
+</script>
+
+    </body>
+</html>
