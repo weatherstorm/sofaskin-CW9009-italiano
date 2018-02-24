@@ -1,43 +1,46 @@
-# Sofaskin-CW9009
-CW9009 Meridian code modifications to Sofaskin web page for Weewx originally developed by Sven at http://neoground.com/projects/weewx. Please see the readme for dependency requirements to use this skin. 
+progetto tradotto da https://github.com/weatherstorm/Sofaskin-CW9009
 
-Sofaskin V1.1 is developed by Sven at Neoground: http://neoground.com/projects/weewx. This is a great template but I made some modifications to suit my needs. I also added some code from another template by <a href="http://www.dajda.net">dajda.net</a> to make the history and NOAA Tables. There is also code additions from <a href=http://www.torkel.se/weather/index.html> Björn Torkelsson</a>. A list of the changes are listed below along with instructions to setup the history tables. 
+# Sofaskin-CW9009-Italiano
+CW9009 Meridian è il codice modificato di Sofaskin, la web page per Weewx originariamente sviluppato da Sven su http://neoground.com/projects/weewx. Vi prego di vedere il readme per i requisiti di installazione per usare questo skin.
 
-- Added more variables in the skin.conf files to help customize the pages. 
-- Removed monthly and yearly summary drop down list and added a separate summaries page. 
-- Used all-time records weewx variables to create records table.
-- Added a station page for station history and information along with links to weather networks where data is sent.  
-- Added Menu button for smaller screens.
-- Auto page refresh every ten minutes.
-- Added code from the dajda.net to produce history tables.The historygenerator.py script must be added to WeeWx in order for the - tables to work.
-- Created a PHP page template to view the NOAA climate text files.
-- Add warning if the weather data is old (more than 30 min old). (Written by Björn Torkelsson) 
+Sofaskin V1.1 è sviluppata da Sven su Neoground: http://neoground.com/projects/weewx. Questo è un grande template ma Josh ha fatto alcune modifiche per adattarlo alle sue esigenze. Ha anche aggiunto del codice da un altro template da dajda.net per fare lo storico e le tabelle NOAA. C’è anche del codice aggiunto di Björn Torkelsson. Una lista di cambiamenti è mostrata di seguito con le istruzioni per installare le tabelle storiche.
+-   Aggiunte altre variabili sul file skin.conf per aiutare a personalizzare le pagine.
+-    Rimossi i sommari mensili e annuali e aggiunte delle pagine separate.
+-    Usate sempre le variabili weewx per creare le tabelle.
+-    Aggiunta una pagina della stazione per lo storico e le informazioni con i link ai network meteo dove i dati sono inviati.
+-    Aggiunto un bottone Menu per gli schermi piccoli.
+-    Refresh della pagina ogni dieci minuti.
+-    Aggiunto il codice da dajda.net per produrre le tabelle storiche. Lo script historygenerator.py deve essere aggiunto a WeeWx per far aggiornare le tabelle.
+-    Creata una pagina PHP template per mostrare i testi NOAA.
+-    Aggiunto un allarme se i dati meteo non sono aggiornati da più di 30 minuti. (Scritto da Björn Torkelsson)
+ 
 
 <b>Responsive Menu:</b><br>
-I added a better responsive menu system that would use less vertical space on smaller screen sizes.
+Aggiunto un migliore sistema di responsive menu che usa meno spazio verticale sugli schermi piccoli.
 
 ![screenshot_20161127-062548](https://cloud.githubusercontent.com/assets/22601363/20864991/f2f14eb8-b9c2-11e6-8bba-b4043f425bbb.png)
 ![screenshot_20161201-124209](https://cloud.githubusercontent.com/assets/22601363/20864992/f4b96654-b9c2-11e6-8346-650fee6db484.png)
 <br><br>
-<b>History Table:</b><br>
-The historygenerator.py script was part of a template developed by http://www.dajda.net/index.html. More information on the template is available at http://www.dajda.net/about.html and the original template is available on GitHub at 
-https://github.com/brewster76/fuzzy-archer. I modify the code in historygenerator.py to create the right html links in the NOAA climate summary table and wrote a php page to view the summary. 
+<b>Tabella storico:</b><br>
+Lo script historygenerator.py era una parte del template sviluppato da http://www.dajda.net/index.html. Più informazioni sul template sono disponibili a http://www.dajda.net/about.html e il template originale è disponibile su GitHub a https://github.com/brewster76/fuzzy-archer. È stato modificato il codice in historygenerator.py per creare gli esatti link html links nel sommario meteo NOAA e scrivere la pagina php per mostrare il sommario.
+
 
 ![template](https://cloud.githubusercontent.com/assets/22601363/20864962/3f40b91c-b9c2-11e6-8298-75bec529dc40.jpg)
 <br><br>
-<b>Old Data Alert:</b><br>
-Displays an alert message in the header when weather data is X minutes old. The default is 30 minutes but this can be adjusted in the checkdiff.js file in the js folder. 
+<b>Allarme aggiornamenti:</b><br>
+Mostra un messaggio di allarme nella testata quando i dati meteo sono vecchio di oltre X minuti. Il tempo defailt è di 30 minuti ma può essere modificato nel file checkdiff.js nella cartella js. 
 
 ![olddata](https://cloud.githubusercontent.com/assets/22601363/21075763/496c385c-bed7-11e6-82e8-789ffa300601.jpg)
 <br><br>
-<b>Installation instructions:</b><br>
-Installing the template is just like installing most other skins. You need to place the skin files in it’s own folder in the /etc/weewx/skins directory. You also need to change the skin variable to the new skin directory name in the weewx.conf file under Standard Reports. 
+<b>Istruzioni di installazione:</b><br>
+Installare il template è come per la maggior parte degli altri skins. Devi mettere i file dello skin in una propria cartella in /etc/weewx/skins directory. Devi anche cambiare la variabile skin nel file weewx.conf sotto Standard Reports.
 
 Example:<br>
 [[StandardReport]]
 skin = Sofaskin 
 
-Lastly, you need to put the historygenerator.py python script, in the /usr/share/weewx/user directory. The skin.conf already has the code to use the tables so you don’t need to mess with that unless you want to change the colors. You should update the variables in the skin.conf file to match your station information. More information on historygenerator.py and how to use the tables is available through the links below.
-https://github.com/brewster76/fuzzy-archer/blob/master/INSTALL
+Alla fine, devi mettere lo script historygenerator.py python in /usr/share/weewx/user directory. Lo skin.conf ha già il codice per usare queste tabelle così non devi modificare nulla a meno che tu non voglia cambiare i colori. Dovresti aggiornare le varibiali nel file skin.conf per collegarle alle informazioni della stazione. Più informazioni sullo script historygenerator.py e come usare le tabelle sono disponibili nel link di seguito. https://github.com/brewster76/fuzzy-archer/blob/master/INSTALL
 
-If you have problems, you can email me at josh@cw9009.x10host.com  
+Se hai problemi, mi puoi scrivere una mail a josh@cw9009.x10host.com
+
+Ulteriori informazioni sul funzionamento si possono richiedere inviando una mail a info@meteopaupisi.it 
