@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head itemscope itemtype="http://schema.org/Website">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Refresh" content="180">
+    #if $Extras.has_key('cwop')
+    <meta name="description" content="Tabelle Mensili $station.location Stazione Meteo ($Extras.cwop). Sito meteo generato da WeeWX">
+    #else
+    <meta name="description" content="Tabelle Mensili $station.location Stazione Meteo. Sito generato da WeeWX">
+    #end if
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11" />
+    #if $Extras.has_key('web_url')
+    <link href="$Extras.web_url/month.html" itemprop="url"/>
+    #end if
+    <title itemprop="name">$station.location Tabelle Mensili Meteo</title>
+    <!-- Open Graph -->
+    <meta property="og:site_name" content="$station.location Tabelle Mensili Meteo" />
+    <meta property="og:title" content="Tabelle Mensili Meteo $station.location"/>
+    #if $Extras.has_key('web_url')
+    <meta property="og:url" content="$Extras.web_url/month.html"/>
+    #end if
+    <meta property="og:description" content="Tabelle Mensili Meteo $station.location Stazione Meteo. Sito generato da WeeWX" />
+    <meta property="og:type" content="website" />
+    <!-- FavIcons -->
+    <link rel="icon" href="favicon.ico" type="image/png">
+    <link rel="apple-touch-icon" href="touch-icon.png"/>
+        
+    <!-- Styles -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Font Awesome CDN links for 5.12.0-->
+    <!-- If you have a pro license -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.12.0/css/all.css" integrity="sha384-ekOryaXPbeCpWQNxMwSWVvQ0+1VrStoPJq54shlYhR8HzQgig1v5fas6YgOqLoKz" crossorigin="anonymous">
+    <!-- Free license -->
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" integrity="sha384-REHJTs1r2ErKBuJB0fCK99gCYsVjwxHrSU0N7I1zl9vZbggVJXRMsv/sLlOAGb4M" crossorigin="anonymous"> -->
+ 
+    <!-- Script -->
+    <script src="js/modernizr-2.6.2.min.js"></script>
+    <script src="js/checkdiff.js"></script>
+
+  </head>
+  <body>
+    <header>
+      <div class="container-fix" >
+        <div class="h-left" >
+          <h1><i class="fas fa-cloud" ></i> $station.location </h1>
+          <p>$station.latitude[0]&deg; $station.latitude[1]' $station.latitude[2] | $station.longitude[0]&deg; $station.longitude[1]' $station.longitude[2] | $station.altitude | <a href="https://www.google.com/maps/?q=$station.latitude[0]&deg;%20$station.latitude[1]%20$station.latitude[2],$station.longitude[0]&deg;%20$station.longitude[1]%20$station.longitude[2]" target="_blank" ><i class="fas fa-map-marker-alt" ></i> Show on map</a></p>
+          <h2>Tabelle Mensili Meteo</h2>
+          <p><i class="far fa-clock" ></i> $current.dateTime $current.dateTime.format("%Z")</p>
+          <p id="freshweather" class="m-orange"></p>
+          <script>
+            window.onload = checkDiff("$current.dateTime ($current.dateTime.format('%Z'))");
+          </script>
+        </div>
+        <div class="h-right" >
+          <table>
+            <tr>
+              <td><b>Stazione:</b></td>
+              <td>$station.hardware</td>
+            </tr>
+            <tr>
+              <td><b>Software:</b></td>
+              <td><a href="http://weewx.com/" target="_blank" >WeeWX v$station.version</a></td>
+            </tr>
+            <tr>
+              <td><b>Weewx uptime:</b></td>
+              <td>$station.uptime</td>
+            </tr>
+            <tr>
+              <td><b>Server uptime:</b></td>
+              <td>$station.os_uptime</td>
+            </tr>
+          </table>
+        </div>
+        <nav>
+          <ul class="topnav" id="myTopnav">
+            <li class="icon"><a href="javascript:void(0);" onclick="myFunction()"><i class="fas fa-bars" ></i></a></li>
+            <li><a href="/" >Corrente</a></li>
+            <li><a href="week.html" >Settimana</a></li>
+            <li class="active"><a href="month.html" >Mese</a></li>
+            <li><a href="year.html" >Anno</a></li>
+            <li><a href="summary.html" >Sommario</a></li>
+            <li><a href="about.html" >About</a></li>
+            <li><a href="RSS/weewx_rss.xml" ><i class="fas fa-rss" ></i></a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="main" >
+      <div class="container" >
+        <div class="left" >
+          <div class="card" >
+            <h1><i class="far fa-calendar-alt m-orange" ></i> Questo Mese</h1>
+            <table class="tablespacer">
+              <tr>
+                <td>Temperatura Max</td>
+                <td>$month.outTemp.max</td>
+                <td>$month.outTemp.maxtime</td>
+              </tr>
+              <tr>
+                <td>Temperatura Min</td>
+                <td>$month.outTemp.min</td>
+                <td>$month.outTemp.mintime</td>
+              </tr>
+              <tr>
+                <td>Indice di calore Max</td>
+                <td>$month.heatindex.max</td>
+                <td>$month.heatindex.maxtime</td>
+              </tr>
+              <tr>
+                <td>Temperatura percepita Min</td>
+                <td>$month.windchill.min</td>
+                <td>$month.windchill.mintime</td>
+              </tr>
+              <tr>
+                <td>Indice di rugiada Max</td>
+                <td>$month.dewpoint.max</td>
+                <td>$month.dewpoint.maxtime</td>
+              </tr>
+              <tr>
+                <td>Indice di rugiada Min</td>
+                <td>$month.dewpoint.min</td>
+                <td>$month.dewpoint.mintime</td>
+              </tr>
+              <tr>
+                <td>Umidit&Agrave; Max</td>
+                <td>$month.outHumidity.max</td>
+                <td>$month.outHumidity.maxtime</td>
+              </tr>
+              <tr>
+                <td>Umidit&Agrave; Min</td>
+                <td>$month.outHumidity.min</td>
+                <td>$month.outHumidity.mintime</td>
+              </tr>
+              <tr>
+                <td>Pressione Max</td>
+                <td>$month.barometer.max</td>
+                <td>$month.barometer.maxtime</td>
+              </tr>
+              <tr>
+                <td>Pressione Min</td>
+                <td>$month.barometer.min</td>
+                <td>$month.barometer.mintime</td>
+              </tr>
+              <tr>
+                <td>Pioggia totale</td>
+                <td>$month.rain.sum</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Indice di pioggia max</td>
+                <td>$month.rainRate.max</td>
+                <td>$month.rainRate.maxtime</td>
+              </tr>
+              <tr>
+                <td>Velocit&Agrave; Vento Max</td>
+                <td>$month.wind.max <br>$month.wind.gustdir</td>
+                <td>$month.wind.maxtime</td>
+              </tr>
+              <tr>
+                <td>Vento medio</td>
+                <td>$month.wind.avg</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>RMS Vento</td>
+                <td>$month.wind.rms</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Vento medio vettoriale</td>
+                <td>$month.wind.vecavg</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Direzione vento vettoriale</td>
+                <td>$month.wind.vecdir</td>
+                <td></td>
+              </tr>
+	      #if $month.inTemp.has_data
+              <tr>
+                <td>Temperatura interna Max</td>
+                <td>$month.inTemp.max</td>
+                <td>$month.inTemp.maxtime</td>
+              </tr>
+              <tr>
+                <td>Temperatura interna Min</td>
+                <td>$month.inTemp.min</td>
+                <td>$month.inTemp.mintime</td>
+              </tr>
+	      #end if
+              #if $month.extraTemp1.has_data
+              <tr>
+                <td>Punto di rugiada Max</td>
+                <td>$month.extraTemp1.max</td>
+                <td>$month.extraTemp1.maxtime</td>
+              </tr>
+              <tr>
+                <td>Punto di rugiada Min</td>
+                <td>$month.extraTemp1.min</td>
+                <td>$month.extraTemp1.mintime</td>
+              </tr>
+              #end if
+              #if $month.UV.has_data
+              <tr>
+                <td>Indice UV Max</td>
+                <td>$month.UV.max</td>
+                <td>$month.UV.maxtime</td>
+              </tr>
+              #end if
+              #if $month.ET.has_data and $month.ET.sum.raw >1
+              <tr>
+                <td>ET Max</td>
+                <td>$month.ET.max</td>
+                <td>$month.ET.maxtime</td>
+              </tr>
+              <tr>
+                <td>ET Min</td>
+                <td>$month.ET.min</td>
+                <td>$month.ET.mintime</td>
+              </tr>
+              #end if
+              #if $month.radiation.has_data
+              <tr>
+                <td>Radiazione Max</td>
+                <td>$month.radiation.max</td>
+                <td>$month.radiation.maxtime</td>
+              </tr>
+              #end if
+	      #if $month.lux.has_data
+              <tr>
+                <td>Luminosit&Agrave; Max</td>
+                <td>$month.lux.max</td>
+		<td>$month.lux.maxtime</td>
+              </tr>
+              #end if
+	      #if $month.lightningStrikes.has_data
+	      <tr>
+                <td>Giorno Luminosit&Agrave; Max</td>
+                <td>$month.lightningStrikes.max</td>
+		<td>$month.lightningStrikes.maxtime</td>
+              </tr>
+              <tr>
+                <td>Luminosit&Agrave; Totale</td>
+                <td>$month.lightningStrikes.sum</td>
+		<td></td>
+              </tr>
+              #end if
+            </table>
+          </div>
+	 #if $month($months_ago=12).outTemp.max.string != "   N/A"
+          <div class="card" >
+            <h1><i class="far fa-calendar-alt m-orange" ></i> Ultimo $month($months_ago=12).dateTime.format("%B %Y")</h1>
+            <table class="tablespacer">
+              <tr>
+                <td>Temperatura Max</td>
+                <td>$month($months_ago=12).outTemp.max</td>
+                <td>$month($months_ago=12).outTemp.maxtime</td>
+              </tr>
+              <tr>
+                <td>Temperatura Min</td>
+                <td>$month($months_ago=12).outTemp.min</td>
+                <td>$month($months_ago=12).outTemp.mintime</td>
+              </tr>
+              <tr>
+                <td>Indice di calore Max</td>
+                <td>$month($months_ago=12).heatindex.max</td>
+                <td>$month($months_ago=12).heatindex.maxtime</td>
+              </tr>
+              <tr>
+                <td>Temperatura percepita Min</td>
+                <td>$month($months_ago=12).windchill.min</td>
+                <td>$month($months_ago=12).windchill.mintime</td>
+              </tr>
+              <tr>
+                <td>Punto di rugiada Max</td>
+                <td>$month($months_ago=12).dewpoint.max</td>
+                <td>$month($months_ago=12).dewpoint.maxtime</td>
+              </tr>
+              <tr>
+                <td>Punto di rugiada Min</td>
+                <td>$month($months_ago=12).dewpoint.min</td>
+                <td>$month($months_ago=12).dewpoint.mintime</td>
+              </tr>
+              <tr>
+                <td>Umidit&Agrave; Max</td>
+                <td>$month($months_ago=12).outHumidity.max</td>
+                <td>$month($months_ago=12).outHumidity.maxtime</td>
+              </tr>
+              <tr>
+                <td>Umidit&Agrave; Min</td>
+                <td>$month($months_ago=12).outHumidity.min</td>
+                <td>$month($months_ago=12).outHumidity.mintime</td>
+              </tr>
+              <tr>
+                <td>Pressione Max</td>
+                <td>$month($months_ago=12).barometer.max</td>
+                <td>$month($months_ago=12).barometer.maxtime</td>
+              </tr>
+              <tr>
+                <td>Pressione Min</td>
+                <td>$month($months_ago=12).barometer.min</td>
+                <td>$month($months_ago=12).barometer.mintime</td>
+              </tr>
+              <tr>
+                <td>Pioggia Totale</td>
+                <td>$month($months_ago=12).rain.sum</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Indice di Pioggia</td>
+                <td>$month($months_ago=12).rainRate.max</td>
+                <td>$month($months_ago=12).rainRate.maxtime</td>
+              </tr>
+              <tr>
+                <td>Velocit&Agrave; Vento Max</td>
+                <td>$month($months_ago=12).wind.max <br>$month($months_ago=12).wind.gustdir</td>
+                <td>$month($months_ago=12).wind.maxtime</td>
+              </tr>
+              <tr>
+                <td>Vento medio</td>
+                <td>$month($months_ago=12).wind.avg</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>RMS Vento</td>
+                <td>$month($months_ago=12).wind.rms</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Velocit&Agrave; Vento Vettoriale</td>
+                <td>$month($months_ago=12).wind.vecavg</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Direzione Vento Vettoriale</td>
+                <td>$month($months_ago=12).wind.vecdir</td>
+                <td></td>
+              </tr>
+	      #if $month($months_ago=12).inTemp.has_data
+              <tr>
+                <td>Temperatura interna Max</td>
+                <td>$month($months_ago=12).inTemp.max</td>
+                <td>$month($months_ago=12).inTemp.maxtime</td>
+              </tr>
+              <tr>
+                <td>Temperatura interna Min</td>
+                <td>$month($months_ago=12).inTemp.min</td>
+                <td>$month($months_ago=12).inTemp.mintime</td>
+              </tr>
+	      #end if
+              #if $month($months_ago=12).extraTemp1.has_data
+              <tr>
+                <td>Punto di rugiada Max</td>
+                <td>$month($months_ago=12).extraTemp1.max</td>
+                <td>$month($months_ago=12).extraTemp1.maxtime</td>
+              </tr>
+              <tr>
+                <td>Punto di rugiada Min</td>
+                <td>$month($months_ago=12).extraTemp1.min</td>
+                <td>$month($months_ago=12).extraTemp1.mintime</td>
+              </tr>
+              #end if
+              #if $month($months_ago=12).UV.has_data
+              <tr>
+                <td>Indice UV Max</td>
+                <td>$month($months_ago=12).UV.max</td>
+                <td>$month($months_ago=12).UV.maxtime</td>
+              </tr>
+              #end if
+              #if $month($months_ago=12).ET.has_data and $month($months_ago=12).ET.sum.raw >1
+              <tr>
+                <td>Indice ET Max</td>
+                <td>$month($months_ago=12).ET.max</td>
+                <td>$month($months_ago=12).ET.maxtime</td>
+              </tr>
+              #end if
+              #if $month($months_ago=12).radiation.has_data
+              <tr>
+                <td>Radiazioni Max</td>
+                <td>$month($months_ago=12).radiation.max</td>
+                <td>$month($months_ago=12).radiation.maxtime</td>
+              </tr>
+              #end if
+	      #if $month($months_ago=12).lux.has_data
+              <tr>
+                <td>Luminosit&Agrave; Max</td>
+                <td>$month($months_ago=12).lux.max</td>
+		<td>$month($months_ago=12).lux.maxtime</td>
+              </tr>
+              #end if
+	      #if $month($months_ago=12).lightningStrikes.has_data
+	      <tr>
+                <td>Giorno Luminosit&Agrave; Max</td>
+                <td>$month($months_ago=12).lightningStrikes.max</td>
+		<td>$month($months_ago=12).lightningStrikes.maxtime</td>
+              </tr>
+              <tr>
+                <td>Luminosit&Agrave; Totale</td>
+                <td>$month($months_ago=12).lightningStrikes.sum</td>
+		<td></td>
+              </tr>
+              #end if
+            </table>
+          </div>
+	  #end if
+        </div>
+        <div class="right" >
+          <div class="card cc graphs" >
+            <h1><i class="fas fa-chart-line m-gruen" ></i> Statistiche Mensili e Grafici</h1>
+            <img src="monthtempdew.png" alt="temperatures" />
+            <img src="monthrain.png" alt="rain" />
+            <img src="monthwind.png" alt="wind" />
+            <img src="monthwinddir.png" alt="Hi Wind" />
+            <img src="monthwindvec.png" alt="Wind Vector" />
+            <img src="monthbarometer.png" alt="barometer"/>
+	    #if $month.inTemp.has_data
+            <img src="monthinside.png" alt="Inside" />
+	    #end if
+            <img src="monthinhumid.png" alt="Inside/Outside Humidity" />
+            #if $month.UV.has_data
+            <img src="monthuv.png" alt="UV Index" />
+            #end if
+            #if $month.radiation.has_data
+            <img src="monthradiation.png" alt="Radiation" />
+            #end if
+	    #if $month.lightningStrikes.has_data
+            <img src="monthlightning.png" alt="Lightning" />
+            #end if
+	    #if $month.windBatteryStatus.has_data and $month.outTempBatteryStatus.has_data
+            <img src="monthbattery.png" alt="battery"/>
+            #end if
+            #if $month.rxCheckPercent.has_data
+            <img src="monthrx.png" alt="month rx percent"/>
+            #end if
+            #if $month.extraTemp1.has_data
+            <img src="monthpond.png" alt="Pond Temperatures" />
+            #end if
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="container-fix">
+        <div style="text-align:center">
+          #if $Extras.has_key('you')
+          <i class="fab fa-pied-piper-pp"> </i><a href=mailto:$Extras.email> $Extras.you</a> 
+          #end if
+          &sdot;
+          Copyright <i class="far fa-copyright"></i> $latest.dateTime.format("%Y") 
+          <br>
+          Sofaskin by <a href="http://neoground.com">Neoground</a>
+          &sdot;
+          CW9009 Version by <a href="http://cw9009.x10host.com">JDS</a>
+          &sdot;
+          Powered by<i class="fas fa-cog fa-spin fa-fw" aria-hidden="true"></i><a href="http://weewx.com/" target="_blank">WeeWX</a> 
+        </div>
+      </div>
+    </footer>
+    #if $Extras.has_key('googleAnalyticsId')
+    <!-- Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      
+      ga('create', '$Extras.googleAnalyticsId', 'auto');
+      ga('send', 'pageview');
+    </script>
+    #end if
+    <!-- Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon -->
+    <script>
+      function myFunction() {
+          var x = document.getElementById("myTopnav");
+          if (x.className === "topnav") {
+              x.className += " responsive";
+          } else {
+              x.className = "topnav";
+          }
+      }
+    </script>
+  </body>
+</html>
