@@ -1,21 +1,21 @@
 # Sofaskin-CW9009
-CW9009 Meridian code modifications to Sofaskin web page for Weewx originally developed by Sven at http://neoground.com/projects/weewx. Please see the readme for dependency requirements to use this skin. An Italian version of these directions are available at http://micae.it/2017/12/28/sofaskin-italiano/. 
+CW9009 Meridian sono le meofiche al codice della pagina web Sofaskin per Weewx originalmente sviluppata da Sven su http://neoground.com/projects/weewx. Consultare il file Leggimi per i requisiti di dipendenza per utilizzare questa skin. Una versione Italiana di queste directorysono disponibili su  http://micae.it/2017/12/28/sofaskin-italiano/. 
 
-Sofaskin V1.1 is developed by Sven at Neoground: https://neoground.com/portfolio/neowx/. ***Sven no longer supports the original skin.*** This is a great template but I made some modifications to suit my needs. I also added some code from another template by <a href="http://www.dajda.net">dajda.net</a> to make the history and NOAA Tables. There is also code additions from <a href=http://www.torkel.se/weather/index.html> Björn Torkelsson</a>. A list of the changes are listed below along with instructions to setup the history tables. 
+Sofaskin V1.1 è stato sviluppato da Sven su Neoground: https://neoground.com/portfolio/neowx/. ***Sven da tempo non supporta lo skin originale.*** Questo è un gran template but I ho implementato delle modifiche che mi confacevano. Ho anche aggiunto del codice da un altro template di <a href="http://www.dajda.net">dajda.net</a> per fare una cronologia delle tabelle NOAA. Ci sono altre righe di codice addizionali da <a href=http://www.torkel.se/weather/index.html> Björn Torkelsson</a>. Una lista dei cambiamenti è elencato sotto con le istruzioni per il setup delle tabelle cronologiche. 
 
-- Added more variables in the skin.conf files to help customize the pages. 
-- Removed monthly and yearly summary drop down list and added a separate summaries page. 
-- Used all-time records weewx variables to create records table.
-- Added a station page for station information along with links to weather networks where data is sent.  
-- Added Menu button for smaller screens.
-- Auto page refresh every ten minutes.
-- Added code from the dajda.net to produce history tables.The historygenerator.py script must be added to WeeWx in order for the - tables to work.
-- Created a PHP page template to view the NOAA climate text files.
-- Add warning if the weather data is old (more than 30 min old). (Written by Björn Torkelsson) 
-- Replaced javascript code in the web camera section of index.html with CSS slideshow to allow for more than two web cameras
+- Aggiunte altre variabili nello file skin.conf per personalizzare le pagine. 
+- Rimosse le tabelle mensili e settimanali dalla pagina ed aggiunte in nuove pagine. 
+- Usati i record di tutti i tempi di weewkx per creare una tabella dei record.
+- Aggiunta una pagina Stazione per le informazioni sulla stazione cpn i link delle pagine meteo dove i dati sono inviati.  
+- Aggiunto un bottone Menu per gli schermi più piccoli.
+- Refresh automatico della pagina ogni dieci minuti.
+- Aggiunto del codice da dajda.net per produrre delle tabelle storiche.Lo script historygenerator.py deve essere aggiunto a WeeWx per funzionare.
+- Creata una pagina PHP per vedere i file del NOAA.
+- Aggiunto un warning se i fati della pagina non sono aggionati (più di 30 minuti). (Scritto da Björn Torkelsson) 
+- Riscritto il codice javascript nella sezione web camera della pagina index.html con lo Slideshow per abilitare più di due webcam.
 
 <b>Responsive Menu:</b><br>
-I added a better responsive menu system that would use less vertical space on smaller screen sizes.
+Ho aggiunto un migliore sistema responsive menu che usa meno spazio verticale per gli schermi piccoli.
 
 ![screenshot_20161127-062548](https://cloud.githubusercontent.com/assets/22601363/20864991/f2f14eb8-b9c2-11e6-8bba-b4043f425bbb.png)
 ![screenshot_20161201-124209](https://cloud.githubusercontent.com/assets/22601363/20864992/f4b96654-b9c2-11e6-8346-650fee6db484.png)
