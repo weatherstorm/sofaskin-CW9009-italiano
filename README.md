@@ -20,29 +20,29 @@ Ho aggiunto un migliore sistema responsive menu che usa meno spazio verticale pe
 ![screenshot_20161127-062548](https://cloud.githubusercontent.com/assets/22601363/20864991/f2f14eb8-b9c2-11e6-8bba-b4043f425bbb.png)
 ![screenshot_20161201-124209](https://cloud.githubusercontent.com/assets/22601363/20864992/f4b96654-b9c2-11e6-8346-650fee6db484.png)
 <br><br>
-<b>History Table:</b><br>
-The historygenerator.py script was part of a template developed by http://www.dajda.net/index.html. More information on the template is available at http://www.dajda.net/about.html and the original template is available on GitHub at 
-https://github.com/brewster76/fuzzy-archer. I modify the code in historygenerator.py to create the right html links in the NOAA climate summary table and wrote a php page to view the summary. 
+<b>Tabella storico:</b><br>
+Lo script historygenerator.py era una parte del template sviluppato da http://www.dajda.net/index.html. Altre informazioni sul template sono disponibili su http://www.dajda.net/about.html e il template originale è disponibile su GitHub a 
+https://github.com/brewster76/fuzzy-archer. Ho modificato il codice historygenerator.py per creare il giusto link html nel sommario NOAA e scrive una pagina php per vedere la tabella. 
 
 ![template](https://cloud.githubusercontent.com/assets/22601363/20864962/3f40b91c-b9c2-11e6-8298-75bec529dc40.jpg)
 <br><br>
 <b>Old Data Alert:</b><br>
-Displays an alert message in the header when weather data is X minutes old. The default is 30 minutes but this can be adjusted in the checkdiff.js file in the js folder. 
+Mostra un messaggio di alert nell'header quando i dati sono vecchi di X minuti. Il default è di 30 minuti ma questo può essere modificato nel file checkdiff.js nella cartella js. 
 
 ![olddata](https://cloud.githubusercontent.com/assets/22601363/21075763/496c385c-bed7-11e6-82e8-789ffa300601.jpg)
 <br><br>
-<b>Installation instructions:</b><br>
-Installing the template is just like installing most other skins. You need to place the skin files in it’s own folder in the /etc/weewx/skins directory. You also need to change the skin variable to the new skin directory name in the weewx.conf file under Standard Reports. 
+<b>Istruzioni di installazione:</b><br>
+Installare il template è come per la maggior parte degli skin. Devi mettere i file dello skin in una propria cartella nella cartella /etc/weewx/skins. Devi anche cambiare la variabile nel file weewx.conf sotto Standard Reports. 
 
-Example:<br>
+Esempio:<br>
 [[StandardReport]]
 skin = Sofaskin 
 
-You also need to put the historygenerator.py python script, in the /usr/share/weewx/user directory. The skin.conf already has the code to use the tables so you don’t need to mess with that unless you want to change the colors. More information on historygenerator.py and how to use the tables is available through the links below.
+Devi anche mettere lo script python historygenerator.py, nella directory /usr/share/weewx/user. Il file skin.conf ha già il codice per usare le tabelle, quindi non è necessario rovinarlo a meno che non si desideri cambiare i colori. Altre informazioni sullo script historygenerator.py e come usare le tabelle sono disponibile nel link di seguito.
 https://github.com/brewster76/fuzzy-archer/blob/master/INSTALL
 
-<b>IMPORTANT:</b>
-You should update the variables in the EXTRA section of the skin.conf file to match your station information. Example section below:
+<b>IMPORTANTE:</b>
+Devi aggiornare le variabili nella sezione EXTRA del file skin.conf file per abbinare le informazione della tua stazione. Di  seguito l'esempio della sezione:
 
 ```
 [Extras]
@@ -75,4 +75,5 @@ You should update the variables in the EXTRA section of the skin.conf file to ma
     #cwop = 
     #cwop_url = 
 ```
-If you have problems, you can email me at josh@cw9009.x10host.com  
+Se hai dei problemi, puoi scrivermi a josh@cw9009.x10host.com
+Ulteriori informazioni al traduttore italiano info@meteopaupisi.it
